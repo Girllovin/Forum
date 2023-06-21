@@ -83,5 +83,16 @@ public class UserAccountServiceImpl implements UserAccountService {
 		userAccountRepository.save(userAccount);
 
 	}
-
+	@Override
+	public void run(String... args) throws Exception {
+		if(!userAccountRepository.existsById("admin")) {
+			String password = BCrypt.hashpw("admin", BCrypt.gensalt());
+			UserAccount userAccount = new UserAccount("admin", password, "", "");
+			userAccount.addRole("USER");
+			userAccount.addRole("MODERATOR");
+			userAccount.addRole("ADMINISTRATOR");
+			userAccountRepository.save(userAccount);
+		}
+		
+	}
 }

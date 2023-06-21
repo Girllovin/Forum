@@ -2,6 +2,7 @@ package telran.java47.accounting.service;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.modelmapper.ModelMapper;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import telran.java47.accounting.model.UserAccount;
 
 @Service
 @RequiredArgsConstructor
-public class UserAccountServiceImpl implements UserAccountService {
+public class UserAccountServiceImpl implements UserAccountService, CommandLineRunner {
 	
 	final UserAccountRepository userAccountRepository;
 	final ModelMapper modelMapper;
@@ -83,6 +84,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 		userAccountRepository.save(userAccount);
 
 	}
+
 	@Override
 	public void run(String... args) throws Exception {
 		if(!userAccountRepository.existsById("admin")) {
@@ -95,4 +97,5 @@ public class UserAccountServiceImpl implements UserAccountService {
 		}
 		
 	}
+
 }

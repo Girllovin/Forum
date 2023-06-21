@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(30)
-public class UpdateUserByOwnerFilter implements Filter {
+public class OperationByOwnerFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
@@ -38,6 +38,8 @@ public class UpdateUserByOwnerFilter implements Filter {
 	}
 
 	private boolean checkEndPoint(String method, String path) {
-		return "PUT".equalsIgnoreCase(method) && path.matches("/account/user/\\w+/?");
+		return ("PUT".equalsIgnoreCase(method) && path.matches("/account/user/\\w+/?")) ||
+			   ("PUT".equalsIgnoreCase(method) && path.matches("/forum/post/\\w+/comment/\\w+/?")) ||
+			   ("POST".equalsIgnoreCase(method) && path.matches("/forum/post/\\w+/?"));
 	}
 }
